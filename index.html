@@ -48,7 +48,6 @@
             border-radius: 12px;
             color: aliceblue;
             cursor: pointer;
-            
         }
 
         .nav-item:hover {
@@ -91,11 +90,25 @@
             color: white;
             text-decoration: none;
             border-radius: 8px;
-           
         }
 
         .content-box a:hover {
             background-color: darkblue;
+        }
+
+        /* Alcohol Info Box */
+        .alcohol-box {
+            background-color: aliceblue;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: solid 1px midnightblue;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            width: fit-content;
+            display: none; /* Initially hidden */
         }
 
         /* Time display */
@@ -116,7 +129,7 @@
     <div style="display: flex; justify-content: space-around;" class="header">
         <h2>Substance Abuse Awareness</h2>
         <div class="nav-icons">
-            <div class="nav-item" onclick="alert('Alcohol Info')">
+            <div class="nav-item" onclick="toggleAlcoholInfo()">
                 <img src="https://thumb.ac-illust.com/18/185b55e6ce397c1cec512b5afc2e5ec4_w.jpeg" alt="Alcohol">
                 Alcohol
             </div>
@@ -130,6 +143,22 @@
         </div>
     </div>
 
+    <!-- Alcohol Info Box -->
+    <div id="alcoholBox" class="alcohol-box">
+        <div id="welcomeheader"> 
+            <h1>welcome</h1>
+        </div>
+        <h3>Alcohol</h3>
+            <h4>The Reality</h4>
+            <p>Alcohol consumption can lead to dependency, liver disease, and impaired judgment.</p>
+            <h4>The Ideal</h4>
+            <p>Understanding responsible drinking and making informed choices.</p>
+            <h4>The Bridge</h4>
+            <p>Education, awareness, and support systems help mitigate risks.</p>
+            <button onclick="toggleAlcoholInfo()">Close</button>
+        
+    </div>
+
     <!-- Main Content Box -->
     <div class="content-box">
         <img src="https://static.vecteezy.com/system/resources/previews/027/711/799/non_2x/pill-pack-in-pixel-art-style-vector.jpg" alt="Substance Icon">
@@ -141,8 +170,17 @@
     </div>
 
     <script>
+        function toggleAlcoholInfo() {
+            var alcoholBox = document.getElementById("alcoholBox");
+            if (alcoholBox.style.display === "none" || alcoholBox.style.display === "") {
+                alcoholBox.style.display = "block";
+            } else {
+                alcoholBox.style.display = "none";
+            }
+        }
+
         function updateTime() {
-            var currentTime = new Date().toLocaleString(); // Fixed the typo here
+            var currentTime = new Date().toLocaleString();
             document.getElementById("timeElement").textContent = currentTime;
         }
 
