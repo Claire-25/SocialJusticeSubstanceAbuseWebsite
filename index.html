@@ -101,20 +101,20 @@
          position: absolute;
          top: 50%;
          left: 50%;
-         transform: translate(-50%, -50%);
+       /*  transform: translate(-50%, -50%); */
          border: solid 1px midnightblue;
          border-radius: 16px;
          background-color: aliceblue;
          padding: 20px;
          text-align: center;
-         width: fit-content;
+         width: 700px;
          display: none; /* Initially hidden */
          cursor: move; /* Indicate that the box can be moved */
          z-index: 1001; /* Ensure it's above other elements like the OS tab */
        } 
 
        #alcoholBoxheader {
-          cursor: move; /* Indicate that this part can be dragged */
+           cursor: move; /* Indicate that this part can be dragged */
            padding: 10px;
            background-color: rgba(236, 192, 45, 0.6); /* Visual feedback for dragging area */
            border-radius: 8px;
@@ -191,6 +191,45 @@
                 alcoholBox.style.display = "none";
             }
         }
+
+        dragElement(document.getElementById("alcoholBox"));
+
+      function dragElement(element) {
+      var initialX = 0, initialY = 0, currentX = 0, currentY = 0;
+     
+     if (document.getElementById(element.id + "header")) {
+         document.getElementById(element.id + "header").onmousedown = startDragging;
+     } else {
+         element.onmousedown = startDragging;
+     }
+
+     function startDragging(e) {
+         e = e || window.event;
+         e.preventDefault();
+         initialX = e.clientX;
+         initialY = e.clientY;
+         document.onmouseup = stopDragging;
+         document.onmousemove = dragElement;
+     }
+
+     function dragElement(e) {
+         e = e || window.event;
+         e.preventDefault();
+         currentX = initialX - e.clientX;
+         currentY = initialY - e.clientY;
+         initialX = e.clientX;
+         initialY = e.clientY;
+         element.style.top = (element.offsetTop - currentY) + "px";
+         element.style.left = (element.offsetLeft - currentX) + "px";
+         
+     }
+
+     function stopDragging() {
+         document.onmouseup = null;
+         document.onmousemove = null;
+     }
+ }
+
 
         function updateTime() {
             var currentTime = new Date().toLocaleString();
