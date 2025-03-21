@@ -1,65 +1,153 @@
 <!DOCTYPE html>
-<html>
-    <body style="font-family:Verdana, Geneva, Tahoma, sans-serif; background-image:url(./dystopian\ pixel\ gif\ background.gif); background-size: 100vw 100vh;">
-        <div style="background-color:aliceblue; position: absolute; top: 50%; left:50%; transform: translate(-50%, -50%); border: solid; width: fit-content; border-radius: 16px; padding: 20px;">
-            <img style="padding: 4px; width: 80px; height: 80px; border-radius: 16px; object-fit: cover" src="https://static.vecteezy.com/system/resources/previews/027/711/799/non_2x/pill-pack-in-pixel-art-style-vector.jpg">
-            <h1 style="margin: 4px; padding: 4px; color:midnightblue"> 
-                <strong>Welcome to my OS 
-                </strong>
-            </h1>
-            <p style="padding: 4px; color: midnightblue">
-                The purpose of this website is to inform about substance abuse
-            </p>
-         <a style="padding: 4px;"href="https://nida.nih.gov/publications/drugfacts/understanding-drug-use-addiction">
-             NIH website
-            </a>
-        </div>
-        <div style="color:midnightblue; display:flex; justify-content: space-between; position: absolute; width: 100%; backdrop-filter: blur(10px); background-color: rgba(236, 192, 45, .50); color:midnightblue;">
-            <h2 style=" margin-left: 16px; font-weight: 100;">
-                Substance Abuse
-            </h2>
-            <div style="display: flex; justify-content: space-evenly; position: absolute; width: 100%;">
-             
-                 <p style="cursor: pointer; color: aliceblue; display: flex; align-content: space-between;" id="welcomeopen">
-                     <img style="width: 60px; height: 60px; border-radius: 12px; object-fit: cover" src="https://thumb.ac-illust.com/18/185b55e6ce397c1cec512b5afc2e5ec4_w.jpeg">
-                     alcohol
-                 </p>
-                <p style=" color: aliceblue; background-color: rgba(0,0,0,.25); margin-right: 16px;  border-radius: 16px; padding: 9px 12px;">
-                    <img style="width: 60px; height: 60px; border-radius: 12px; object-fit: cover" src="https://static.vecteezy.com/system/resources/previews/027/711/799/non_2x/pill-pack-in-pixel-art-style-vector.jpg">
-                    drugs
-                </p>
-                <p id="timeElement"
-                   style="color: aliceblue; background-color: rgba(0,0,0,.25); margin-right: 16px;  border-radius: 16px; padding: 9px 12px"> 
-                   Time
-                </p>    
-            </div>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Substance Abuse Awareness</title>
+    <style>
+        body {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-image: url('./dystopian\ pixel\ gif\ background.gif');
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header styles */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            padding: 10px 20px;
+            backdrop-filter: blur(10px);
+            background-color: rgba(236, 192, 45, 0.6);
+            color: midnightblue;
+            z-index: 1000;
+        }
+
+        .header h2 {
+            margin: 0;
+            font-weight: 500;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background-color: rgba(0, 0, 0, 0.25);
+            border-radius: 12px;
+            color: aliceblue;
+            cursor: pointer;
             
-        </div>
-        <div id="welcome" style="position: absolute; top: 50%; left:50%; transform: translate(-50%, -50%); border: solid; width: fit-content; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; top: calc(50% - 90px); left: calc(50% - 180px); backdrop-filter: blur(4px); background-color: rgba(0,0,0,.125);">
-            <div id="welcomeheader" style="width: 100%; display: flex; justify-content: center;align-items: center; cursor: move; justify-content: center; margin-top: 8px;" >
-                <p style="margin: 0px; font-weight: 500;">Handle</p>
+        }
+
+        .nav-item:hover {
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .nav-item img {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        /* Main content box */
+        .content-box {
+            background-color: aliceblue;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: solid 1px midnightblue;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            width: fit-content;
+        }
+
+        .content-box img {
+            width: 80px;
+            height: 80px;
+            border-radius: 16px;
+            object-fit: cover;
+        }
+
+        .content-box a {
+            display: inline-block;
+            padding: 8px 12px;
+            margin-top: 10px;
+            background-color: midnightblue;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+           
+        }
+
+        .content-box a:hover {
+            background-color: darkblue;
+        }
+
+        /* Time display */
+        #timeElement {
+            font-weight: bold;
+            padding: 8px;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 12px 16px;
+            white-space: nowrap; /* Prevents wrapping */
+            min-width: 200px; /* Ensures enough space for long timestamps */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header with Icons -->
+    <div style="display: flex; justify-content: space-around;" class="header">
+        <h2>Substance Abuse Awareness</h2>
+        <div class="nav-icons">
+            <div class="nav-item" onclick="alert('Alcohol Info')">
+                <img src="https://thumb.ac-illust.com/18/185b55e6ce397c1cec512b5afc2e5ec4_w.jpeg" alt="Alcohol">
+                Alcohol
             </div>
-            <p style="cursor: pointer; margin-top: 8px; display: flex; justify-content:flex-start;" id="welcomeclose"> 
-                Close
-            </p>
-            <div style="background-color: aliceblue; border-radius: 12px; width: 360px; padding: 16px;">
-                <h2 style="margin: 16px;">Substance Abuse</h2>  
-               <h3 style="margin: 16px;">the opium wars</h3>  
-              <p style="margin: 16px;">The history of substance abuse dates back to</p>
+            <div class="nav-item" onclick="alert('Drugs Info')">
+                <img src="https://static.vecteezy.com/system/resources/previews/027/711/799/non_2x/pill-pack-in-pixel-art-style-vector.jpg" alt="Drugs">
+                Drugs
             </div>
-            
-         
-        
+            <div class="nav-item" id="timeElement">
+                Time
+            </div>
         </div>
-        <script> 
-            function updateTime() {
-               var currentTime = new Date().toLocalString(); 
-               var timeText = document.querySelector("#timeElement");
-               timeText.innerHTML = currentTime;
-            }
-            setInterval(updateTime, 1000);
-      
-      </script>
-      <script src="script.js"></script>
-    </body>
+    </div>
+
+    <!-- Main Content Box -->
+    <div class="content-box">
+        <img src="https://static.vecteezy.com/system/resources/previews/027/711/799/non_2x/pill-pack-in-pixel-art-style-vector.jpg" alt="Substance Icon">
+        <h1>Welcome to My OS</h1>
+        <p>The purpose of this website is to inform about substance abuse.</p>
+        <a href="https://nida.nih.gov/publications/drugfacts/understanding-drug-use-addiction" target="_blank">
+            Visit NIH Website
+        </a>
+    </div>
+
+    <script>
+        function updateTime() {
+            var currentTime = new Date().toLocaleString(); // Fixed the typo here
+            document.getElementById("timeElement").textContent = currentTime;
+        }
+
+        setInterval(updateTime, 1000);
+    </script>
+
+</body>
 </html>
