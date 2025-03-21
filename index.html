@@ -98,18 +98,29 @@
 
         /* Alcohol Info Box */
         .alcohol-box {
-            background-color: aliceblue;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border: solid 1px midnightblue;
-            border-radius: 16px;
-            padding: 20px;
-            text-align: center;
-            width: fit-content;
-            display: none; /* Initially hidden */
-        }
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         transform: translate(-50%, -50%);
+         border: solid 1px midnightblue;
+         border-radius: 16px;
+         background-color: aliceblue;
+         padding: 20px;
+         text-align: center;
+         width: fit-content;
+         display: none; /* Initially hidden */
+         cursor: move; /* Indicate that the box can be moved */
+         z-index: 1001; /* Ensure it's above other elements like the OS tab */
+       } 
+
+       #alcoholBoxheader {
+          cursor: move; /* Indicate that this part can be dragged */
+           padding: 10px;
+           background-color: rgba(236, 192, 45, 0.6); /* Visual feedback for dragging area */
+           border-radius: 8px;
+           font-weight: bold;
+           z-index: 1002; /* Ensure it's above other elements like the OS tab */
+       }
 
         /* Time display */
         #timeElement {
@@ -145,8 +156,8 @@
 
     <!-- Alcohol Info Box -->
     <div id="alcoholBox" class="alcohol-box">
-        <div id="welcomeheader"> 
-            <h1>welcome</h1>
+        <div style="cursor: move;" id="alcoholBoxheader"> 
+            <h1>header</h1>
         </div>
         <h3>Alcohol</h3>
             <h4>The Reality</h4>
@@ -168,6 +179,8 @@
             Visit NIH Website
         </a>
     </div>
+
+    
 
     <script>
         function toggleAlcoholInfo() {
