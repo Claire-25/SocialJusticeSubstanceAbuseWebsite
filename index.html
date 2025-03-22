@@ -113,14 +113,40 @@
          z-index: 1001; /* Ensure it's above other elements like the OS tab */
        } 
 
+
+       /* Drug Info Box */
+       .drug-box {
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         border: solid 1px midnightblue;
+         border-radius: 16px;
+         background-color: aliceblue;
+         padding: 20px;
+         text-align: center;
+         width: 700px;
+         display: none; /* Initially hidden */
+         cursor: move; /* Indicate that the box can be moved */
+         z-index: 1001; /* Ensure it's above other elements like the OS tab */
+       } 
        #alcoholBoxheader {
            cursor: move; /* Indicate that this part can be dragged */
-           padding: 10px;
+           padding: 6px;
            background-color: rgba(236, 192, 45, 0.6); /* Visual feedback for dragging area */
            border-radius: 8px;
            font-weight: bold;
            z-index: 1002; /* Ensure it's above other elements like the OS tab */
        }
+
+       #drugBoxheader {
+           cursor: move; /* Indicate that this part can be dragged */
+           padding: 6px;
+           background-color: rgba(236, 192, 45, 0.6); /* Visual feedback for dragging area */
+           border-radius: 8px;
+           font-weight: bold;
+           z-index: 1002; /* Ensure it's above other elements like the OS tab */
+       }
+
 
         /* Time display */
         #timeElement {
@@ -144,7 +170,7 @@
                 <img src="https://thumb.ac-illust.com/18/185b55e6ce397c1cec512b5afc2e5ec4_w.jpeg" alt="Alcohol">
                 Alcohol
             </div>
-            <div class="nav-item" onclick="alert('Drugs Info')">
+            <div class="nav-item" onclick="toggleDrugInfo()">
                 <img src="https://static.vecteezy.com/system/resources/previews/027/711/799/non_2x/pill-pack-in-pixel-art-style-vector.jpg" alt="Drugs">
                 Drugs
             </div>
@@ -157,9 +183,8 @@
     <!-- Alcohol Info Box -->
     <div id="alcoholBox" class="alcohol-box">
         <div style="cursor: move;" id="alcoholBoxheader"> 
-            <h1>header</h1>
+            <h1>Alcohol</h1>
         </div>
-        <h3>Alcohol</h3>
             <h4>The Reality</h4>
             <p>Alcohol consumption can lead to dependency, liver disease, and impaired judgment.</p>
             <h4>The Ideal</h4>
@@ -167,6 +192,21 @@
             <h4>The Bridge</h4>
             <p>Education, awareness, and support systems help mitigate risks.</p>
             <button onclick="toggleAlcoholInfo()">Close</button>
+        
+    </div>
+
+     <!-- Drug Info Box -->
+     <div id="drugBox" class="drug-box">
+        <div style="cursor: move;" id="drugBoxheader"> 
+            <h1>Drug</h1>
+        </div>
+            <h4>The Reality</h4>
+            <p>Drug consumption can lead to dependency, liver disease, and impaired judgment.</p>
+            <h4>The Ideal</h4>
+            <p>People don't take drugs unless medically necessary.</p>
+            <h4>The Bridge</h4>
+            <p>Education, awareness, and support systems help mitigate risks.</p>
+            <button onclick="toggleDrugInfo()">Close</button>
         
     </div>
 
@@ -192,45 +232,55 @@
             }
         }
 
-        dragElement(document.getElementById("alcoholBox"));
+        function toggleDrugInfo() {
+            var drugBox = document.getElementById("drugBox");
+            if (drugBox.style.display === "none" || drugBox.style.display === "") {
+                drugBox.style.display = "block";
+            } else {
+                alcoholBox.style.display = "none";
+            }
+        }
 
-      function dragElement(element) {
-      var initialX = 0, initialY = 0, currentX = 0, currentY = 0;
+      dragElement(document.getElementById("alcoholBox"));
+      dragElement(document.getElementById("drugBox"));
+
+     function dragElement(element) {
+           var initialX = 0, initialY = 0, currentX = 0, currentY = 0;
      
-     if (document.getElementById(element.id + "header")) {
-         document.getElementById(element.id + "header").onmousedown = startDragging;
-     } else {
-         element.onmousedown = startDragging;
-     }
+          if (document.getElementById(element.id + "header")) {
+                document.getElementById(element.id + "header").onmousedown = startDragging;
+          }  else {
+               element.onmousedown = startDragging;
+          }
 
-     function startDragging(e) {
-         e = e || window.event;
-         e.preventDefault();
-         initialX = e.clientX;
-         initialY = e.clientY;
-         document.onmouseup = stopDragging;
-         document.onmousemove = dragElement;
-     }
+        function startDragging(e) {
+           e = e || window.event;
+           e.preventDefault();
+           initialX = e.clientX;
+           initialY = e.clientY;
+           document.onmouseup = stopDragging;
+           document.onmousemove = dragElement;
+        }
 
-     function dragElement(e) {
-         e = e || window.event;
-         e.preventDefault();
-         currentX = initialX - e.clientX;
-         currentY = initialY - e.clientY;
-         initialX = e.clientX;
-         initialY = e.clientY;
-         element.style.top = (element.offsetTop - currentY) + "px";
-         element.style.left = (element.offsetLeft - currentX) + "px";
+       function dragElement(e) {
+           e = e || window.event;
+           e.preventDefault();
+           currentX = initialX - e.clientX;
+           currentY = initialY - e.clientY;
+           initialX = e.clientX;
+           initialY = e.clientY;
+           element.style.top = (element.offsetTop - currentY) + "px";
+           element.style.left = (element.offsetLeft - currentX) + "px";
          
+        }
+
+        function stopDragging() {
+            document.onmouseup = null;
+            document.onmousemove = null;
+        }
      }
 
-     function stopDragging() {
-         document.onmouseup = null;
-         document.onmousemove = null;
-     }
- }
-
-
+    //* time element *//
         function updateTime() {
             var currentTime = new Date().toLocaleString();
             document.getElementById("timeElement").textContent = currentTime;
@@ -238,6 +288,8 @@
 
         setInterval(updateTime, 1000);
     </script>
+
+    
 
 </body>
 </html>
