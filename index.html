@@ -129,6 +129,11 @@
          cursor: move; /* Indicate that the box can be moved */
          z-index: 1001; /* Ensure it's above other elements like the OS tab */
        } 
+
+
+
+       
+
        #alcoholBoxheader {
            cursor: move; /* Indicate that this part can be dragged */
            padding: 6px;
@@ -136,6 +141,7 @@
            border-radius: 8px;
            font-weight: bold;
            z-index: 1002; /* Ensure it's above other elements like the OS tab */
+           position: relative; /*for close button??*/
        }
 
        #drugBoxheader {
@@ -213,11 +219,17 @@
     <!-- Main Content Box -->
     <div class="content-box">
         <img src="https://static.vecteezy.com/system/resources/previews/027/711/799/non_2x/pill-pack-in-pixel-art-style-vector.jpg" alt="Substance Icon">
-        <h1>Welcome to My OS</h1>
-        <p>The purpose of this website is to inform about substance abuse.</p>
+       <!-- <h1>Welcome to My OS</h1>
+        <p>The purpose of this website is to inform about substance abuse.</p>  
         <a href="https://nida.nih.gov/publications/drugfacts/understanding-drug-use-addiction" target="_blank">
             Visit NIH Website
+        </a>-->
+        <h1>Why should you care?</h1>
+        <p>According to SAMHSA, in 2023, the percentage of people aged 12 or older with a Substance Use Disorder (SUD) in the past year was highest among young adults aged 18 to 25 (27.1% or 9.2 million people)</p>
+        <a href="https://www.samhsa.gov/data/sites/default/files/NSDUH%202023%20Annual%20Release/2023-nsduh-main-highlights.pdf" target="_blank">
+            Visit SAMHSA Website
         </a>
+        
     </div>
 
     
