@@ -237,48 +237,75 @@
             if (drugBox.style.display === "none" || drugBox.style.display === "") {
                 drugBox.style.display = "block";
             } else {
-                alcoholBox.style.display = "none";
+                drugBox.style.display = "none";
             }
         }
 
-      dragElement(document.getElementById("alcoholBox"));
-      dragElement(document.getElementById("drugBox"));
-
-     function dragElement(element) {
-           var initialX = 0, initialY = 0, currentX = 0, currentY = 0;
      
-          if (document.getElementById(element.id + "header")) {
-                document.getElementById(element.id + "header").onmousedown = startDragging;
-          }  else {
-               element.onmousedown = startDragging;
-          }
 
-        function startDragging(e) {
-           e = e || window.event;
-           e.preventDefault();
-           initialX = e.clientX;
-           initialY = e.clientY;
-           document.onmouseup = stopDragging;
-           document.onmousemove = dragElement;
+        function dragElement(element) {
+    var initialX = 0, initialY = 0, currentX = 0, currentY = 0;
+    var active = false;
+
+    // Check if the header exists to allow dragging from it
+    var header = document.getElementById(element.id + "header");
+    if (header) {
+        header.onmousedown = startDragging;
+        header.ontouchstart = startDragging;
+    } else {
+        element.onmousedown = startDragging;
+        element.ontouchstart = startDragging;
+    }
+
+    function startDragging(e) {
+        e.preventDefault();
+        active = true;
+
+        if (e.type === "touchstart") {
+            initialX = e.touches[0].clientX - element.offsetLeft;
+            initialY = e.touches[0].clientY - element.offsetTop;
+            document.ontouchmove = drag;
+            document.ontouchend = stopDragging;
+        } else {
+            initialX = e.clientX - element.offsetLeft;
+            initialY = e.clientY - element.offsetTop;
+            document.onmousemove = drag;
+            document.onmouseup = stopDragging;
+        }
+    }
+
+    function drag(e) {
+        if (!active) return;
+
+        e.preventDefault();
+
+        if (e.type === "touchmove") {
+            currentX = e.touches[0].clientX - initialX;
+            currentY = e.touches[0].clientY - initialY;
+        } else {
+            currentX = e.clientX - initialX;
+            currentY = e.clientY - initialY;
         }
 
-       function dragElement(e) {
-           e = e || window.event;
-           e.preventDefault();
-           currentX = initialX - e.clientX;
-           currentY = initialY - e.clientY;
-           initialX = e.clientX;
-           initialY = e.clientY;
-           element.style.top = (element.offsetTop - currentY) + "px";
-           element.style.left = (element.offsetLeft - currentX) + "px";
-         
-        }
+        element.style.left = currentX + "px";
+        element.style.top = currentY + "px";
+    }
 
-        function stopDragging() {
-            document.onmouseup = null;
-            document.onmousemove = null;
-        }
-     }
+    function stopDragging() {
+        active = false;
+        document.onmousemove = null;
+        document.onmouseup = null;
+        document.ontouchmove = null;
+        document.ontouchend = null;
+    }
+}
+
+// Apply dragging to your elements
+dragElement(document.getElementById("alcoholBox"));
+dragElement(document.getElementById("drugBox"));
+
+
+     
 
     //* time element *//
         function updateTime() {
