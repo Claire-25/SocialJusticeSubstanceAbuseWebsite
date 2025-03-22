@@ -198,7 +198,7 @@
      <!-- Drug Info Box -->
      <div id="drugBox" class="drug-box">
         <div style="cursor: move;" id="drugBoxheader"> 
-            <h1>Drug</h1>
+            <h1>Drugs</h1>
         </div>
             <h4>The Reality</h4>
             <p>Drug consumption can lead to dependency, liver disease, and impaired judgment.</p>
@@ -247,7 +247,6 @@
     var initialX = 0, initialY = 0, currentX = 0, currentY = 0;
     var active = false;
 
-    // Check if the header exists to allow dragging from it
     var header = document.getElementById(element.id + "header");
     if (header) {
         header.onmousedown = startDragging;
@@ -276,19 +275,28 @@
 
     function drag(e) {
         if (!active) return;
-
         e.preventDefault();
 
+        let newX, newY;
+        let screenWidth = window.innerWidth;
+        let screenHeight = window.innerHeight;
+        let elemWidth = element.offsetWidth;
+        let elemHeight = element.offsetHeight;
+
         if (e.type === "touchmove") {
-            currentX = e.touches[0].clientX - initialX;
-            currentY = e.touches[0].clientY - initialY;
+            newX = e.touches[0].clientX - initialX;
+            newY = e.touches[0].clientY - initialY;
         } else {
-            currentX = e.clientX - initialX;
-            currentY = e.clientY - initialY;
+            newX = e.clientX - initialX;
+            newY = e.clientY - initialY;
         }
 
-        element.style.left = currentX + "px";
-        element.style.top = currentY + "px";
+        // Constrain within window bounds
+        newX = Math.max(0, Math.min(screenWidth - elemWidth, newX));
+        newY = Math.max(0, Math.min(screenHeight - elemHeight, newY));
+
+        element.style.left = newX + "px";
+        element.style.top = newY + "px";
     }
 
     function stopDragging() {
@@ -304,8 +312,7 @@
 dragElement(document.getElementById("alcoholBox"));
 dragElement(document.getElementById("drugBox"));
 
-
-     
+    
 
     //* time element *//
         function updateTime() {
