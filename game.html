@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Path to Recovery</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background-color: #f2f2f2; }
+        #gameCanvas { background-color: #e3e3e3; margin-top: 50px; }
+        button { padding: 10px 20px; font-size: 16px; margin-top: 20px; cursor: pointer; }
+        #message { font-size: 20px; margin-top: 20px; color: #333; }
+    </style>
+</head>
+<body>
+    <h1>Path to Recovery</h1>
+    <canvas id="gameCanvas" width="600" height="400"></canvas>
+    <div id="message"></div>
+    <button id="startButton">Start Game</button>
+
+    <script>
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+
+        let gameStarted = false;
+        let health = 100;
+        let stress = 0;
+
+        const choices = [
+            {
+                prompt: "You're feeling stressed. What will you do?",
+                options: [
+                    { text: "Turn to a friend for support", healthChange: 10, stressChange: -10 },
+                    { text: "Use substances to cope", healthChange: -30, stressChange: 20 },
+                    { text: "Exercise to clear your mind", healthChange: 5, stressChange: -5 },
+                ]
+            },
+            {
+                prompt: "You're at a party. Someone offers you a drink. What do you do?",
+                options: [
+                    { text: "Politely refuse and leave the party", healthChange: 5, stressChange: -10 },
+                    { text: "Accept the drink and join in", healthChange: -20, stressChange: 15 },
+                    { text: "Tell your friend you're not interested", healthChange: 0, stressChange: 0 },
+                ]
+            },
+            {
+                prompt: "You're feeling overwhelmed by life. What's your next step?",
+                options: [
+                    { text: "Seek counseling and support", healthChange: 15, stressChange: -10 },
+                    { text: "Isolate yourself to avoid problems", healthChange: -10, stressChange: 30 },
+                    { text: "Work harder to suppress emotions", healthChange: -5, stressChange: 20 },
+                ]
+            }
+        ];
+
+        function startGame() {
+            gameStarted = true;
+            health = 100;
+            stress = 0;
+            document.getElementById("startButton").style.display = "none";
+            showChoices(0);
+        }
+
+        function showChoices(index) {
+            if (index >= choices.length || health <= 0) {
+                endGame();
+                return;
+            }
+
+            const choiceData = choices[index];
+            document.getElementById("message").textContent = choiceData.prompt;
+
+            const choiceButtons = choiceData.options.map((option, idx) => {
+                return `<button onclick="makeChoice(${index}, ${idx})">${option.text}</button>`;
+            }).join('');
+            document.getElementById("message").innerHTML += choiceButtons;
+        }
+
+        function makeChoice(questionIndex, optionIndex) {
+            const choice = choices[questionIndex].options[optionIndex];
+            health += choice.healthChange;
+            stress += choice.stressChange;
+
+            if (health <= 0) {
+                endGame();
+                return;
+            }
+
+            document.getElementById("message").innerHTML = `Health: ${health} | Stress: ${stress}`;
+            setTimeout(() => showChoices(questionIndex + 1), 1000);
+        }
+
+        function endGame() {
+            if (health <= 0) {
+                document.getElementById("message").textContent = "Game Over! You need to take care of yourself.";
+            } else {
+                document.getElementById("message").textContent = "You've made it! Keep up the good work!";
+            }
+            document.getElementById("startButton").style.display = "block";
+            document.getElementById("startButton").textContent = "Restart Game";
+        }
+
+        document.getElementById("startButton").addEventListener("click", startGame);
+    </script>
+
+<button onclick="goHome()">Back to Home</button>
+
+<script>
+  function goHome() {
+    window.location.href = "index.html"; // Change "index.html" to your actual home page file
+  }
+</script>
+
+</body>
+</html>

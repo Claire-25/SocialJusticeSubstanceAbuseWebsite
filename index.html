@@ -5,10 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Substance Abuse Awareness</title>
     <style>
+        
         body {
             font-family: Verdana, Geneva, Tahoma, sans-serif;
             background-image: url('./dystopian\ pixel\ gif\ background.gif');
             background-size: cover;
+            background-size: 100vw 100vh;
             margin: 0;
             padding: 0;
         }
@@ -62,19 +64,24 @@
         }
 
         /* Main content box */
+
         .content-box {
             background-color: aliceblue;
-            position: absolute;
-            top: 50%;
+            position: relative;
+            top: 30vh;
             left: 50%;
-            transform: translate(-50%, -50%);
+            transform: translate(-50%);
             border: solid 1px midnightblue;
             border-radius: 16px;
             padding: 20px;
             text-align: center;
             width: 700px;
-        }
+            height: 300px; /* Ensure this is set */
+            display: block;
 
+            
+        }
+        
         .content-box img {
             width: 80px;
             height: 80px;
@@ -96,6 +103,74 @@
         .content-box a:hover {
             background-color: darkblue;
         }
+
+
+        /* selection dots for main-content box */
+         .dots-container {
+            text-align: center;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: center; /* Ensures centering */
+            gap: 8px; /* Adds spacing between dots */
+            width: 100%; /* Ensures it's taking full width */
+            position: absolute;
+            bottom: 7px; /* Positions the dots closer to the bottom of the content box */
+            left: 50%; /* Horizontally centers the dots container */
+            transform: translateX(-50%); /* Ensures perfect centering */
+            display: flex;
+            width: auto; /* The container width will adjust based on the content */
+                    
+            }
+
+            .dot {
+                
+                display: inline-block; /* Ensures all dots are visible */
+                width: 10px;
+                height: 10px;
+                margin: 0 5px;
+                background-color: #888; /* Default color */
+                border-radius: 50%;
+                cursor: pointer;
+                z-index: 1000;
+                
+            }
+
+             /* Keep all dots visible and only change the active dot's color */
+            .dot.active {
+                background-color: #555; /* Change color on active */
+             }
+
+         .dot:hover {
+              background-color: #555;
+        }
+                
+        .content-section.active {
+            display: block;
+            transform: translateX(0);
+        }
+
+        /* Initially hide all content sections */
+        .content-section {
+            display: block;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        /* For sliding effect */
+        .content-section {
+        
+            position: absolute;
+            width: 100%;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-100%); /* Start off-screen */
+            
+            
+        }
+
+        .content-section.active {
+            transform: translateX(0); /* Slide in */
+        }
+
 
         /* Alcohol Info Box */
         .alcohol-box {
@@ -130,6 +205,24 @@
          cursor: move; /* Indicate that the box can be moved */
          z-index: 1001; /* Ensure it's above other elements like the OS tab */
        } 
+
+       /* Arrow Down */
+       .down-arrow {
+         position: absolute;
+         bottom: 20px;
+         left: 50%;
+         transform: translateX(-50%);
+         font-size: 3rem;
+         color: white;
+         text-decoration: none;
+         animation: bounce 1.5s infinite;
+         cursor: pointer;
+      }
+
+        @keyframes bounce {
+          0%, 100% { transform: translate(-50%, 0); }
+          50% { transform: translate(-50%, 10px); }
+        }
 
 
 
@@ -228,19 +321,49 @@
 
     <!-- Main Content Box -->
     <div class="content-box">
-        <img src="https://static.vecteezy.com/system/resources/previews/027/711/799/non_2x/pill-pack-in-pixel-art-style-vector.jpg" alt="Substance Icon">
+         <!-- Sliding content sections -->
+         <div id="content1" class="content-section" style="background-color: aliceblue; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: solid 1px midnightblue; border-radius: 16px;  padding: 20px; text-align: center; width: 700px; height: 300px;">
+            <img src="https://static.vecteezy.com/system/resources/previews/027/711/799/non_2x/pill-pack-in-pixel-art-style-vector.jpg" alt="Substance Icon">
+            <h1>Why should you care?</h1>
+            <p>According to SAMHSA, in 2023, the percentage of people aged 12 or older with a Substance Use Disorder (SUD) in the past year was highest among young adults aged 18 to 25 (27.1% or 9.2 million people)</p>
+            <a href="https://www.samhsa.gov/data/sites/default/files/NSDUH%202023%20Annual%20Release/2023-nsduh-main-highlights.pdf" target="_blank">
+                Visit SAMHSA Website
+            </a></div>
+        <div id="content2" class="content-section" style="background-color: aliceblue; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: solid 1px midnightblue; border-radius: 16px;  padding: 20px; text-align: center; width: 700px; height: 300px;">
+            <h1>Most Common Drugs</h1>
+        </div>
+        <div id="content3" class="content-section" style="background-color: aliceblue; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: solid 1px midnightblue; border-radius: 16px;  padding: 20px; text-align: center; width: 700px; height: 300px;">
+            <h1>Alcohols Affects on the Brain</h1>
+
+            </div>
+        
        <!-- <h1>Welcome to My OS</h1>
         <p>The purpose of this website is to inform about substance abuse.</p>  
         <a href="https://nida.nih.gov/publications/drugfacts/understanding-drug-use-addiction" target="_blank">
             Visit NIH Website
         </a>-->
+        <!-- 
+        <img src="https://static.vecteezy.com/system/resources/previews/027/711/799/non_2x/pill-pack-in-pixel-art-style-vector.jpg" alt="Substance Icon">
         <h1>Why should you care?</h1>
         <p>According to SAMHSA, in 2023, the percentage of people aged 12 or older with a Substance Use Disorder (SUD) in the past year was highest among young adults aged 18 to 25 (27.1% or 9.2 million people)</p>
         <a href="https://www.samhsa.gov/data/sites/default/files/NSDUH%202023%20Annual%20Release/2023-nsduh-main-highlights.pdf" target="_blank">
             Visit SAMHSA Website
-        </a>
+        </a>-->
+        
+        <div class="dots-container">
+            <p class="dot" onclick="showContent(1)"> </p>
+            <p class="dot" onclick="showContent(2)"></p>
+            <p class="dot" onclick="showContent(3)"></p>
+
+        </div>
+       
         
     </div>
+
+    <!-- Down Arrow To Game Page -->
+    <a href="game.html" class="down-arrow">
+        ↓
+    </a>
 
     
 
@@ -343,6 +466,44 @@ dragElement(document.getElementById("drugBox"));
         }
 
         setInterval(updateTime, 1000);
+
+
+
+
+        window.onload = function() {
+    // Show content1 by default, hide others
+    showContent(1); 
+};
+
+function showContent(contentNumber) {
+    // Get all content sections and dots
+    var allContentSections = document.querySelectorAll('.content-section');
+    var allDots = document.querySelectorAll('.dot');
+
+    // Hide all content sections and remove active class from all dots
+    allContentSections.forEach(function (section, index) {
+        section.classList.remove('active');
+        section.style.display = "none"; // Hide content section
+        // Remove active class from all dots
+        if (allDots[index]) {
+            allDots[index].classList.remove('active');
+        }
+    });
+
+    // Show the selected content section and mark its dot as active
+    var selectedContent = document.getElementById('content' + contentNumber);
+    var selectedDot = allDots[contentNumber - 1];  // Dot index is 0-based
+
+    // Make the selected content visible and add active class
+    selectedContent.style.display = "block";
+    selectedContent.classList.add('active');
+
+    // Mark the clicked dot as active
+    if (selectedDot) {
+        selectedDot.classList.add('active');
+    }
+}
+
     </script>
 
     
