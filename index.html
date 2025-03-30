@@ -109,6 +109,7 @@
          .dots-container {
             text-align: center;
             margin-bottom: 10px;
+            margin-top: 10px;
             display: flex;
             justify-content: center; /* Ensures centering */
             gap: 8px; /* Adds spacing between dots */
@@ -224,6 +225,63 @@
           50% { transform: translate(-50%, 10px); }
         }
 
+        /*transforming circles for content7 */
+        #content7 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Adjust based on your layout */
+}
+
+.circle-container {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.center-circle {
+  position: absolute;
+  left: 100%;
+  width: 100px;
+  height: 100px;
+  background-color: rgba(236, 192, 45);;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: aliceblue;
+  font-weight: bold;
+  text-align: center;
+  z-index: 10;
+}
+
+.circle {
+  position: absolute;
+  left: 102%;
+  width: 90px;
+  height: 90px;
+  background-color: midnightblue;
+  border-radius: 50%;
+  display: flex;
+  font-size: 11px;
+  justify-content: center;
+  align-items: center;
+  color: aliceblue;
+  font-weight: bold;
+  text-align: center;
+  opacity: 0.8;
+  transition: transform 0.3s ease;
+  transform: rotate(calc(var(--i) * 72deg)) translateY(-120px);
+}
+
+.circle:hover {
+  transform: rotate(calc(var(--i) * 72deg)) translateY(-120px) scale(1.1);
+}
+
+
 
 
        
@@ -276,7 +334,7 @@
             </div>
             <div class="nav-item">
                 <a href="https://docs.google.com/forms/d/e/1FAIpQLSeiU_cQJvSRS_uPguwbq7zixe4RP966tHshrvZTNWA64Dcc3w/viewform?usp=header" target="_blank">
-                   <img src="test google form pixel art.png" alt="Google Form">
+                   <img src="test_google_form_pixel_art.png" alt="Google Form">
                 </a>
                 Google Form
             </div>
@@ -366,6 +424,62 @@
                 </div>
                
                 </div>   
+
+                <div id="content5" class="content-section" style=" background-color: aliceblue; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: solid 1px midnightblue; border-radius: 16px; padding: 20px; text-align: center; width: 700px; height: 350px; font-size: 13px;">
+                    <h1>The History</h1>
+                    <div style="display: flex; flex-direction: column; text-align: left; row-gap: 1px; bottom: 350px;">
+                        <p><b>7,000-5,000 BCE:</b> Grapes cultivated for wine in what is now modern-day Georgia</p>
+                        <p><b>3,400 BCE:</b> The opium poppy is cultivated in lower Mesopotamia. Sumerians refer to it as the "joy plant"</p>
+                        <p><b>12th century BCE:</b> Early references to "drink madness" from ancient Egypt and Greece</p>
+                        <p><b>1st Century AD:</b> The Roman philosopher Seneca defines drunkenness as a type of insanity</p>
+                        <p><b>4th Century AD:</b> St. John Chrysostom compares inebriation to other known diseases. He is, however, in favor of using wine due to the sacramental role of the Eucharist</p>
+                    </div>
+                
+                    <!-- Wrapper div to center the link -->
+                    <div style="display: flex; position: absolute; justify-content: center; margin-top: auto; bottom: 5px; left: 32%;">
+                        <a style="text-decoration: none; color: midnightblue; color:aliceblue; margin-bottom: 30px;" 
+                           href="https://medicine.yale.edu/news/yale-medicine-magazine/article/history-of-substance-abuse/" 
+                           target="_blank">
+                            Visit Yale School of Medicine Website
+                        </a>
+                    </div>
+                </div>
+
+                <div id="content6" class="content-section" style=" background-color: aliceblue; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: solid 1px midnightblue; border-radius: 16px; padding: 20px; text-align: center; width: 700px; height: 350px; font-size: 13px;">
+                    <h1>The History</h1>
+                    <div style="display: flex; flex-direction: column; text-align: left; row-gap: 1px; bottom: 350px;">
+                        <p><b>The Middle Ages:</b> Attitudes towards drunkenness varied. Some religious sects prohibited the use of substances, while others permitted or encouraged it (Benedictine and Franciscan monks)</p>
+                        <p><b>1560s-90s:</b> There was an early description of narcotic withdrawal, cravings, and compulsions due to opium traffic. "If they leave off somwhat taking it, then they feel physically ill."</p>
+                        <p><b>1789:</b> First American temperance society organized in Litchfield, Connecticut</p>
+                        <p><b>1799:</b> China's emperor, Kia King, bans opium, making trade and poppy cultivation illegal</p>
+                        <p><b>1825-1850:</b> Temperance movement sweeps America and embraces total abstinence as a goal</p>
+                    </div>
+                
+                    <!-- Wrapper div to center the link -->
+                    <div style="display: flex; position: absolute; justify-content: center; margin-top: auto; bottom: 5px; left: 32%;">
+                        <a style="text-decoration: none; color: midnightblue; color:aliceblue; margin-bottom: 30px;" 
+                           href="https://medicine.yale.edu/news/yale-medicine-magazine/article/history-of-substance-abuse/" 
+                           target="_blank">
+                            Visit Yale School of Medicine Website
+                        </a>
+                    </div>
+                </div>
+
+                <div id="content7" class="content-section" style=" background-color: aliceblue; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: solid 1px midnightblue; border-radius: 16px; padding: 20px; text-align: center; width: 700px; height: 350px; font-size: 13px;">
+                    <div class="circle-container">
+                        <div class="center-circle">Current Events</div>
+                        <div class="circle" style="--i:0">More teens than ever are overdosing</div>
+                        <div class="circle" style="--i:1">Topic 2</div>
+                        <div class="circle" style="--i:2">Topic 3</div>
+                        <div class="circle" style="--i:3">Topic 4</div>
+                        <div class="circle" style="--i:4">Topic 5</div>
+                      </div>
+                </div>
+
+
+                
+                
+            
         
        <!-- <h1>Welcome to My OS</h1>
         <p>The purpose of this website is to inform about substance abuse.</p>  
@@ -385,6 +499,10 @@
             <p class="dot" onclick="showContent(2)"></p>
             <p class="dot" onclick="showContent(3)"></p>
             <p class="dot" onclick="showContent(4)"></p>
+            <p class="dot" onclick="showContent(5)"></p>
+            <p class="dot" onclick="showContent(6)"></p>
+            <p class="dot" onclick="showContent(7)"></p>
+
 
         </div>
        
