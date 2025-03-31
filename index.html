@@ -207,6 +207,22 @@
          z-index: 1001; /* Ensure it's above other elements like the OS tab */
        } 
 
+       /* Scripture Info Box */
+       .scripture-box {
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         border: solid 1px midnightblue;
+         border-radius: 16px;
+         background-color: aliceblue;
+         padding: 20px;
+         text-align: center;
+         width: 700px;
+         display: none; /* Initially hidden */
+         cursor: move; /* Indicate that the box can be moved */
+         z-index: 1001; /* Ensure it's above other elements like the OS tab */
+       } 
+
        /* Arrow Down */
        .down-arrow {
          position: absolute;
@@ -317,6 +333,15 @@
            z-index: 1002; /* Ensure it's above other elements like the OS tab */
        }
 
+       #scriptureBoxheader {
+           cursor: move; /* Indicate that this part can be dragged */
+           padding: 6px;
+           background-color: rgba(236, 192, 45, 0.6); /* Visual feedback for dragging area */
+           border-radius: 8px;
+           font-weight: bold;
+           z-index: 1002; /* Ensure it's above other elements like the OS tab */
+       }
+
 
         /* Time display */
         #timeElement {
@@ -344,6 +369,10 @@
                 <img src="https://static.vecteezy.com/system/resources/previews/027/711/799/non_2x/pill-pack-in-pixel-art-style-vector.jpg" alt="Drugs">
                 Bridge
             </div>
+            <div class="nav-item" onclick="toggleScriptureInfo()">
+                <img src="book pixel art.png" alt="Scripture">
+                Scripture
+            </div>
             <div class="nav-item">
                 <a href="https://docs.google.com/forms/d/e/1FAIpQLSeiU_cQJvSRS_uPguwbq7zixe4RP966tHshrvZTNWA64Dcc3w/viewform?usp=header" target="_blank">
                    <img src="test_google_form_pixel_art.png" alt="Google Form">
@@ -361,12 +390,15 @@
         <div style="cursor: move;" id="alcoholBoxheader"> 
             <h1>Ideal</h1>
         </div>
-            <h4>The Reality</h4>
-            <p>Alcohol consumption can lead to dependency, liver disease, and impaired judgment.</p>
-            <h4>The Ideal</h4>
-            <p>Understanding responsible drinking and making informed choices.</p>
-            <h4>The Bridge</h4>
-            <p>Education, awareness, and support systems help mitigate risks.</p>
+            <h4>What Should Happen?</h4>
+            <p>The Catechism of the Catholic Church advocates the virtue of temperance which “disposes us to avoid every kind of excess: the abuse of food, alcohol, tobacco, or medicine,” (CCC, 2290).
+                Additionally, the Catechism states that "morality requires respect for the life of the body" (CCC, 2289). The Church says that the using drugs inflicts grave damage on human health and life. Using drugs, except on strictly therapeutic grounds, is a grave offense.
+            </p>
+            <h4>Catholic Social Teaching</h4>
+            <p><i>Human dignity</i> means we are worthy of respect and esteem. Maintaining our health is an aspect of proteching human dignity. 
+                Additionally, <i>solidarity</i> is seen through scientific research on drugs that advance public health. Therapeutic drugs allow each of us to remain healthy. <i>Solidarity</i> 
+                is seen through organizations like NIDA or the National Institute on Drug Abuse versus local drug rehab centers. 
+            </p>
             <button onclick="toggleAlcoholInfo()">Close</button>
         
     </div>
@@ -386,6 +418,19 @@
             <h4>The Bridge</h4>
             <p>Education, awareness, and support systems help mitigate risks.</p>
             <button onclick="toggleDrugInfo()">Close</button>
+        
+    </div>
+
+     <!-- Scripture Info Box -->
+     <div id="scriptureBox" class="scripture-box">
+        <div style="cursor: move;" id="scriptureBoxheader"> 
+            <h1>Scripture</h1>
+        </div>
+            <h4>The Ideal</h4>
+            <p> “I have the right to do anything,” you say—but not everything is beneficial. “I have the right to do anything”—but I will not be mastered by anything (1 Corinthians 6:12).</p>
+            <h4>The Bridge</h4>
+            <p>Saint Maximilian Kolbe is often venerated as a patron saint for addiction due to his profound understanding of the human struggle with sin and his unwavering commitment to helping those in need. His own life experiences, combined with his spiritual teachings and selfless sacrifice, make him a compelling intercessor for those battling addiction.</p>
+            <button onclick="toggleScriptureInfo()">Close</button>
         
     </div>
 
@@ -547,6 +592,15 @@
             }
         }
 
+        function toggleScriptureInfo() {
+            var scriptureBox = document.getElementById("scriptureBox");
+            if (scriptureBox.style.display === "none" || scriptureBox.style.display === "") {
+                scriptureBox.style.display = "block";
+            } else {
+                scriptureBox.style.display = "none";
+            }
+        }
+
      
 
         function dragElement(element) {
@@ -617,6 +671,7 @@
 // Apply dragging to your elements
 dragElement(document.getElementById("alcoholBox"));
 dragElement(document.getElementById("drugBox"));
+dragElement(document.getElementById("scriptureBox"));
 
     
 
