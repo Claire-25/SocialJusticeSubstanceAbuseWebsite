@@ -6,28 +6,45 @@
     <title>Path to Recovery</title>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; background-color:rgba(236, 192, 45, 0.6); }
-        #gameCanvas { background-color: #e3e3e3; margin-top: 50px; }
-        button { padding: 10px 20px; font-size: 16px; margin-top: 20px; cursor: pointer; background-color: midnightblue; color: aliceblue; border-radius: 16px;}
-        #message { font-size: 20px; margin-top: 20px; color: #333; }
+        #canvasContainer { position: relative; margin-top: 50px; }
+        #gameGif { width: 600px; height: 400px; }
+        button { padding: 10px 20px; font-size: 16px; margin-top: 20px; cursor: pointer; background-color: midnightblue; color: aliceblue; border-radius: 16px; }
+        #message { font-size: 20px; margin-top: 20px; color: #333; display: none; }
+        #choicesContainer { margin-top: 20px; display: none; }
+        /* New CSS for centering the Restart Game button */
+        #restartButtonContainer {
+            text-align: center;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
     <h1 style="color:aliceblue; border-style: solid; height: 50px; background-color: midnightblue; border-color:#333; text-align: center;">Path to Recovery</h1>
-    <canvas id="gameCanvas" width="600" height="400"></canvas>
+    
+    <div id="canvasContainer">
+        <img id="gameGif" src="https://media.giphy.com/media/26n6SMAbn8njt7OpO/giphy.gif?cid=790b7611y0tw7whc9adcq3bpu9ptr2sba51vh7y62a4yb5l4&ep=v1_gifs_search&rid=giphy.gif&ct=g" alt="Game Scene"> <!-- Default GIF -->
+    </div>
+
     <div id="message"></div>
+    <div id="choicesContainer"></div>
     <button id="startButton">Start Game</button>
 
-    <script>
-        const canvas = document.getElementById("gameCanvas");
-        const ctx = canvas.getContext("2d");
+    <div id="restartButtonContainer" style="display:none;">
+        <button id="restartButton" onclick="startGame()">Restart Game</button>
+    </div>
 
+    <script>
         let gameStarted = false;
-        let health = 100;
+        let health = 50;
         let stress = 0;
+        const gameGif = document.getElementById("gameGif");
+        const message = document.getElementById("message");
+        const choicesContainer = document.getElementById("choicesContainer");
 
         const choices = [
             {
                 prompt: "You're feeling stressed. What will you do?",
+                gif: "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExdHl6enY4am9xa2ZoYWh0NXBtaTZqMms4dzBrcWMydm53azdhbWExNyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/k81NasbqkKA5HSyJxN/giphy.gif",
                 options: [
                     { text: "Turn to a friend for support", healthChange: 10, stressChange: -10 },
                     { text: "Use substances to cope", healthChange: -30, stressChange: 20 },
@@ -36,6 +53,7 @@
             },
             {
                 prompt: "You're at a party. Someone offers you a drink. What do you do?",
+                gif: "https://cdn.dribbble.com/userupload/23108942/file/original-161dbdae75cf3203223d92e3dc2be868.gif",
                 options: [
                     { text: "Politely refuse and leave the party", healthChange: 5, stressChange: -10 },
                     { text: "Accept the drink and join in", healthChange: -20, stressChange: 15 },
@@ -43,15 +61,17 @@
                 ]
             },
             {
-                prompt: "You're feeling overwhelmed by life. What's your next step?",
+                prompt: "You’ve been feeling overwhelmed and isolated. A friend offers you alcohol to help you relax. What do you do?",
+                gif: "https://38.media.tumblr.com/063481f87ba3058c8bb235148df090b9/tumblr_nb8zykBVPC1qze3hdo1_r1_500.gif",
                 options: [
-                    { text: "Seek counseling and support", healthChange: 15, stressChange: -10 },
-                    { text: "Isolate yourself to avoid problems", healthChange: -10, stressChange: 30 },
-                    { text: "Work harder to suppress emotions", healthChange: -5, stressChange: 20 },
+                    { text: "Politely decline and ask for emotional support ", healthChange: 10, stressChange: -5 },
+                    { text: "Accept the drink, hoping it will take the edge off", healthChange: -20, stressChange: 15 },
+                    { text: "Tell your friend you prefer to stay sober and offer another activity", healthChange: 5, stressChange: -10 },
                 ]
             },
             {
-                prompt: "Your friend offers you...",
+                prompt: "You're feeling overwhelmed by life. What's your next step?",
+                gif: "https://i.redd.it/5yhu6yiq8ky91.gif",
                 options: [
                     { text: "Seek counseling and support", healthChange: 15, stressChange: -10 },
                     { text: "Isolate yourself to avoid problems", healthChange: -10, stressChange: 30 },
@@ -62,9 +82,12 @@
 
         function startGame() {
             gameStarted = true;
-            health = 100;
+            health = 50;
             stress = 0;
             document.getElementById("startButton").style.display = "none";
+            document.getElementById("restartButtonContainer").style.display = "none"; // Hide restart button on start
+            message.style.display = "block";
+            choicesContainer.style.display = "block";
             showChoices(0);
         }
 
@@ -75,12 +98,12 @@
             }
 
             const choiceData = choices[index];
-            document.getElementById("message").textContent = choiceData.prompt;
-
-            const choiceButtons = choiceData.options.map((option, idx) => {
+            message.innerHTML = `<p>${choiceData.prompt}</p>`;
+            gameGif.src = choiceData.gif;
+            
+            choicesContainer.innerHTML = choiceData.options.map((option, idx) => {
                 return `<button onclick="makeChoice(${index}, ${idx})">${option.text}</button>`;
             }).join('');
-            document.getElementById("message").innerHTML += choiceButtons;
         }
 
         function makeChoice(questionIndex, optionIndex) {
@@ -93,30 +116,27 @@
                 return;
             }
 
-            document.getElementById("message").innerHTML = `Health: ${health} | Stress: ${stress}`;
+            message.innerHTML = `Health: ${health} | Stress: ${stress}`;
             setTimeout(() => showChoices(questionIndex + 1), 1000);
         }
 
         function endGame() {
-            if (health <= 0) {
-                document.getElementById("message").textContent = "Game Over! You need to take care of yourself.";
-            } else {
-                document.getElementById("message").textContent = "You've made it! Keep up the good work!";
-            }
-            document.getElementById("startButton").style.display = "block";
-            document.getElementById("startButton").textContent = "Restart Game";
+            gameGif.src = "https://i.imgur.com/wxjFhor.gif";
+            message.innerHTML = health <= 0 ? "Game Over! You need to take care of yourself." : "You've made it! Keep up the good work!";
+            choicesContainer.innerHTML = ""; // Clear choices
+            choicesContainer.style.display = "none";
+            document.getElementById("restartButtonContainer").style.display = "block"; // Show restart button
         }
 
         document.getElementById("startButton").addEventListener("click", startGame);
     </script>
 
-<button onclick="goHome()">Back to Home</button>
+    <button onclick="goHome()">Back to Home</button>
 
-<script>
-  function goHome() {
-    window.location.href = "index.html"; // Change "index.html" to your actual home page file
-  }
-</script>
-
+    <script>
+      function goHome() {
+        window.location.href = "index.html"; // Change to your actual home page file
+      }
+    </script>
 </body>
 </html>
